@@ -1,7 +1,7 @@
 AWS Cloud Reference Implementation for Java (java_cri)
 ========
 
-java_cri is targeting to cover Java implementations of AWS Cloud Design Pattern [(cdp)](http://aws.clouddesignpattern.org).
+java_cri is targeting to cover Java implementations for AWS Cloud Design Pattern [(cdp)](http://en.clouddesignpattern.org).
 It covers following design patterns.
 - Session replication
 
@@ -11,7 +11,9 @@ If you are interested only running, please follow steps below.
 - ami-128e3613
 
 ## Deploying
-1. Launch two ec2 instances from ami-xxxxxx.
+
+```javascript
+1. Launch two ec2 instances from AMI.
 	a. Logon as ec2-user and specify credentials in "/home/ec2-user/env.sh".
 	b. Configure AwsCri.properties and specify DynamoDB endpoint.
 		...
@@ -19,19 +21,22 @@ If you are interested only running, please follow steps below.
 		...
 	c. Restart each ec2 instance.
 
-2. Create an ELB and register instances through HTTP port (80).
+2. Create an ELB and register ec2 instances with 
+	a. HTTP port	: 80
+	b. ping URI	: /index.jsp
+	c. CookieName	: JSESSIONID
  
 3. Access http://<elb-host>/awscri_web/statesharing/counter.jsp
 
 4. You will see "_sessions" table gets created and session objects are stored as binary data.
-
+```
 
 If you are interested building from scratch, please follow steps below.
 
 ## Prerequisites
 
 ```javascript
-- Java Platform, Standard Edition 7 (Java SE 7)
+- Java Platform, Standard Edition 6 (Java SE 6)
 - AWS SDK 1.3.26 
 - Apache Ant 1.8.x
 - Apache Tomcat 7.0.x
@@ -41,7 +46,7 @@ If you are interested building from scratch, please follow steps below.
 
 ```javascript
 Define environment variables :
-% set %AWS_SDK%=c:\aws-java-sdk-1.3.26
+% set %AWS_SDK%=c:\aws-java-sdk-1.3.x
 % set %CATALINA_HOME%=c:\apache-tomcat-7.0.x
 
 Compile :
@@ -53,6 +58,7 @@ Compile :
 Artifacts :
 <awscri>/dist/awscri.jar
 <awscri_web>/dist/awscri_web.war
+```
 
 ## License
 
