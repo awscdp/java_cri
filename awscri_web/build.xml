@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="awscri_web" default="war" basedir=".">
+	<description>AWS Cloud Reference Implementation - Web app</description>
+	<property name="project-name" value="${ant.project.name}" />
+	<property environment="env"/>
+	<property name="war-file-name" value="${project-name}.war" />
+	<property name="src" value="src" />
+	<property name="classes" value="build/classes" />
+	<property name="web" value="WebContent" />
+	<property name="web-xml-file" value="WebContent/WEB-INF/web.xml" />
+	<tstamp prefix="build-info">
+		<format property="current-date" pattern="d-MMMM-yyyy" locale="en" />
+		<format property="current-time" pattern="hh:mm:ss a z" locale="en" />
+	</tstamp>
+	<property name="build" value="build" />
+	<property name="dist" value="dist" />
+
+	<path id="cp">
+		<fileset dir="${env.AWS_SDK}">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="${env.CATALINA_HOME}/lib">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="${env.CATALINA_HOME}/bin">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="../awscri/dist">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<target name="compile" description="compile the source ">
+		<mkdir dir="${build}/classes" />
+		<javac srcdir="${src}" destdir="${build}/classes"><classpath refid="cp"/></javac>
+	</target>
+	
+	<target name="war" depends="compile">
+		<delete file="${build}/${war-file-name}" />
+		<mkdir dir="${dist}" />
+		<war warfile="${dist}/${war-file-name}" webxml="${web-xml-file}">
+			<classes dir="${classes}" />
+			<fileset dir="${web}">
+				<exclude name="WEB-INF/web.xml" />
+			</fileset>
+		</war>
+	</target>
+
+	<target name="clean" description="clean up">
+		<delete dir="${build}" />
+		<delete dir="${dist}" />
+	</target>	
+</project>

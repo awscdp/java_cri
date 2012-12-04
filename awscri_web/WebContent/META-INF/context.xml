@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Context docBase="${catalina.home}/webapps/awscri_web" path="/awscri_web" reloadable="true" source="org.eclipse.jst.jee.server:awscri" backgroundProcessorDelay="1">
+
+<Manager className="org.apache.catalina.session.PersistentManager" 
+	distributable="true" saveOnRestart="true" processExpiresFrequency="1"
+	maxActiveSessions="-1" minIdleSwap="-1" maxIdleSwap="-1" maxIdleBackup="1" maxInactiveInterval="60">
+	<Store className="com.amazonaws.cri.statesharing.DynamoDBStore" />
+</Manager>
+
+</Context>
